@@ -9,6 +9,10 @@ def respond(json_dict):
 		return welcome()
 	elif intent == "Balance":
 		return balance()
+	elif intent == "Habits":
+		return habits()
+	elif intent == "Predictions":
+		return predictions()
 
 ### Actions ###
 def welcome():
@@ -17,6 +21,14 @@ def welcome():
 def balance():
 	balance = 1000
 	return make_fulfillment("Your balance is $" + str(balance))
+
+def habits():
+	habits = 'test works for habits'
+	return make_fulfillment(habits)
+
+def predictions():
+	predictions = 'test works for predictions'
+	return make_fulfillment(predictions)
 
 ### Tools ###
 def make_fulfillment(text):
