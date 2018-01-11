@@ -1,4 +1,5 @@
 from nessie import createBill, createPurchase, createDeposit, requestPurchasesByAccountID, requestDepositsByAccountID, ACCOUNT_ID
+from functools import reduce
 
 def createUser():
     # Create Bill: account_id, status, payee, nickname, payment_date, recurring_date
@@ -33,5 +34,7 @@ def createUser():
 if __name__ == '__main__':
     # Uncomment to recreate user
     # createUser()
-    print(requestPurchasesByAccountID(ACCOUNT_ID))
-    print(requestDepositsByAccountID(ACCOUNT_ID))
+    with open("purchases.json", "w") as file:
+        file.write("[" + reduce(lambda x, y: str(x) + "," + str(y), requestPurchasesByAccountID(ACCOUNT_ID)) + "]")
+    with open("deposits.json", "w") as file:
+        file.write("[" + reduce(lambda x, y: str(x) + "," + str(y), requestDepositsByAccountID(ACCOUNT_ID)) + "]")

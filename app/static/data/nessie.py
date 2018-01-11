@@ -4,7 +4,7 @@ ACCOUNT_ID = "5a563d355eaa612c093b0b8b"
 CUSTOMER_ID = "5a563d355eaa612c093b0b89"
 
 req = requests.Session()
-req.headers.update({'content-type':'application/json'})
+req.headers.update({"content-type":"application/json"})
 
 # Account #
 
@@ -38,11 +38,11 @@ def getBillByID(bill_id):
 def createBill(account_id, status, payee, nickname, payment_date, recurring_date):
     url = "http://api.reimaginebanking.com/accounts/{0}/bills?key={1}".format(account_id, API_KEY)
     payload = json.dumps({
-        'status': status,
-        'payee': payee,
-        'nickname': nickname,
-        'payment_date': payment_date,
-        'recurring_date': recurring_date,
+        "status": status,
+        "payee": payee,
+        "nickname": nickname,
+        "payment_date": payment_date,
+        "recurring_date": recurring_date,
     })
     response = req.post(url, payload).json()
     return response
@@ -115,9 +115,12 @@ def deletePurchase(purchase_id):
     response = req.delete(url).json()
     return response
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Test Get Requests
-    print(requestAccountByAccountID(ACCOUNT_ID))
-    print(requestAccountByCustomerID(CUSTOMER_ID))
-    print(requestBillsByAccountID(ACCOUNT_ID))
+    # print(requestAccountByAccountID(ACCOUNT_ID))
+    # print(requestAccountByCustomerID(CUSTOMER_ID))
+    # print(requestBillsByAccountID(ACCOUNT_ID))
     print(requestDepositsByAccountID(ACCOUNT_ID))
+    print(type(requestDepositsByAccountID(ACCOUNT_ID)[0]))
+    with open("test.json", "w+") as file:
+        file.write(json.dumps(requestDepositsByAccountID(ACCOUNT_ID)[0]))
