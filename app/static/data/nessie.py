@@ -10,25 +10,25 @@ req.headers.update({"content-type":"application/json"})
 
 def requestAllAccount():
     r = requests.get("http://api.reimaginebanking.com/accounts?type=Checking&key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def requestAccountByAccountID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def requestAccountByCustomerID(customer_id):
     r = requests.get("http://api.reimaginebanking.com/customers/" + customer_id + "/accounts?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 # Bills #
 
 def requestBillsByAccountID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def requestBillsByCustomerID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def getBillByID(bill_id):
     url = "http://api.reimaginebanking.com/bills/{0}?key={1}".format(bill_id, self.api_key)
@@ -48,19 +48,19 @@ def createBill(account_id, status, payee, nickname, payment_date, recurring_date
     return response
 
 def deleteBill(bill_id):
-     url = "http://api.reimaginebanking.com/bills/{0}?key={1}".format(bill_id, API_KEY)
-     response = req.delete(url).json()
-     return response
+    url = "http://api.reimaginebanking.com/bills/{0}?key={1}".format(bill_id, API_KEY)
+    response = req.delete(url).json()
+    return response
 
 # Deposits #
 
 def requestDepositsByAccountID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/deposits?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def getDepositsByDepositID(deposit_id):
     r = requests.get("http://api.reimaginebanking.com/deposits/" + deposit_id + "?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def createDeposit(account_id, medium, date, status, amount, description):
     url = "http://api.reimaginebanking.com/accounts/{0}/deposits?key={1}".format(account_id, API_KEY)
@@ -83,19 +83,19 @@ def deleteDeposit(deposit_id):
 
 def requestPurchasesByAccountID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/purchases?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def requestPurchasesByAccountAndMerchantID(account_id, merchant_id):
     r = requests.get("http://api.reimaginebanking.com/merchants/" + merchant_id + "/accounts/" + account_id + "/purchases?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def requestPurchasesByMerchantID(merchant_id):
     r = requests.get("http://api.reimaginebanking.com/merchant/" + merchant_id + "/purchases?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def getPurchasesByPurchaseID(purchase_id):
     r = requests.get("http://api.reimaginebanking.com/purchases/" + purchase_id + "?key=" + API_KEY)
-    return r.json()
+    return json.dumps(r.json())
 
 def createPurchase(account_id, merchant_id, medium, purchase_date, amount, status, description):
     url = "http://api.reimaginebanking.com/accounts/{0}/purchases?key={1}".format(account_id, API_KEY)
@@ -123,4 +123,4 @@ if __name__ == "__main__":
     print(requestDepositsByAccountID(ACCOUNT_ID))
     print(type(requestDepositsByAccountID(ACCOUNT_ID)[0]))
     with open("test.json", "w+") as file:
-        file.write(json.dumps(requestDepositsByAccountID(ACCOUNT_ID)[0]))
+        file.write(json.dumps(requestDepositsByAccountID(ACCOUNT_ID)))
