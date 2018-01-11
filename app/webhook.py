@@ -1,5 +1,6 @@
 import json
 import datetime
+from app.analytics import Account
 
 ACCOUNT_ID = "5a563d355eaa612c093b0b8b"
 CUSTOMER_ID = "5a563d355eaa612c093b0b89"
@@ -9,7 +10,6 @@ def respond(json_dict):
 	"""Identifies the intent within a json as a dict and returns the corresponding action"""
 	intent = get_intent(json_dict)
 	timeFrame = get_timeFrame(json_dict)
-
 
 	if intent == 'Default Welcome Intent':
 		return welcome()
@@ -22,15 +22,15 @@ def respond(json_dict):
 	elif intent == "Recommendations":
 		return recommendations(timeFrame)
 
-
 ### Intents ###
 def welcome():
 	return make_fulfillment("Hello")
 
 
 def balance():
-	balance = 1000
-	return make_fulfillment("Your balance is $" + str(balance))
+	#Hardcoded account
+	account = Account(ACCOUNT_ID, CUSTOMER_ID)
+	return make_fulfillment("Your balance is $" + str(account.get_balance()))
 
 
 def habits(timeFrame):
