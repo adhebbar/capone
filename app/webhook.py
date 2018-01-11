@@ -10,7 +10,7 @@ def respond(json_dict):
 	elif intent == "Balance":
 		return balance()
 
-### Actions ###
+### Intents ###
 def welcome():
 	return make_fulfillment("Hello")
 

@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, redirect, flash, request
+from flask import render_template, request
 from app import app
 from app.webhook import respond
 
@@ -9,7 +9,6 @@ def index():
 @app.route('/dialogflow', methods=['POST'])
 def dialogflow_webhook():
 	json_dict = request.get_json()
-
 	return respond(json_dict)
 
 if __name__ == '__main__':
