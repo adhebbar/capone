@@ -1,6 +1,8 @@
 import json
 import datetime
 
+ACCOUNT_ID = "5a563d355eaa612c093b0b8b"
+CUSTOMER_ID = "5a563d355eaa612c093b0b89"
 
 ### Main import ###
 def respond(json_dict):
