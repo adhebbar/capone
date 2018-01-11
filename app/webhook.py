@@ -57,9 +57,12 @@ def get_intent(json_dict):
 
 
 def get_timeFrame(json_dict):
-	startDate = json_dict['queryResult']['parameters']['startDate'][0:10]
-	endDate = json_dict['queryResult']['parameters']['endDate'][0:10]
-	realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
-	realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
-	timeFrame = realEnd - realStart
-	return int(timeFrame.days)
+	if 'startDate' in 'parameters' in 'queryResult' in json_dict and 'endDate' in 'parameters' in 'queryResult' in json_dict:
+		startDate = json_dict['queryResult']['parameters']['startDate'][0:10]
+		endDate = json_dict['queryResult']['parameters']['endDate'][0:10]
+		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
+		realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
+		timeFrame = realEnd - realStart
+		return int(timeFrame.days)
+
+	return 0
