@@ -14,7 +14,7 @@ def respond(json_dict):
 	elif intent == "Predictions":
 		return predictions()
 
-### Actions ###
+### Intents ###
 def welcome():
 	return make_fulfillment("Hello")
 
