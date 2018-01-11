@@ -123,4 +123,4 @@ if __name__ == "__main__":
     print(requestDepositsByAccountID(ACCOUNT_ID))
     print(type(requestDepositsByAccountID(ACCOUNT_ID)[0]))
     with open("test.json", "w+") as file:
-        file.write(json.dumps(requestDepositsByAccountID(ACCOUNT_ID)))
+        file.write(requestDepositsByAccountID(ACCOUNT_ID))
