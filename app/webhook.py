@@ -1,49 +1,44 @@
 import json
 import datetime
-from app.analytics import Account
-
-ACCOUNT_ID = "5a563d355eaa612c093b0b8b"
-CUSTOMER_ID = "5a563d355eaa612c093b0b89"
 
 ### Main import ###
-def respond(json_dict):
+def respond(json_dict, account):
 	"""Identifies the intent within a json as a dict and returns the corresponding action"""
 	intent = get_intent(json_dict)
 	timeFrame = get_timeFrame(json_dict)
 
 	if intent == 'Default Welcome Intent':
-		return welcome()
+		return welcome(account)
 	elif intent == "Balance":
-		return balance()
+		return balance(account)
 	elif intent == "Habits":
-		return habits(timeFrame)
+		return habits(account,timeFrame)
 	elif intent == "Predictions":
-		return predictions(timeFrame)
+		return predictions(account,timeFrame)
 	elif intent == "Recommendations":
-		return recommendations(timeFrame)
+		return recommendations(account,timeFrame)
 
 ### Intents ###
-def welcome():
+def welcome(account):
 	return make_fulfillment("Hello")
 
 
-def balance():
+def balance(account):
 	#Hardcoded account
-	account = Account(ACCOUNT_ID, CUSTOMER_ID)
 	return make_fulfillment("Your balance is $" + str(account.get_balance()))
 
 
-def habits(timeFrame):
+def habits(account, timeFrame):
 	habits = 'test works for habits'
 	return make_fulfillment(habits)
 
 
-def predictions(timeFrame):
+def predictions(account, timeFrame):
 	predictions = 'test works for predictions'
 	return make_fulfillment(predictions)
 
 
-def recommendations(timeFrame):
+def recommendations(account, timeFrame):
 	recommendations = 'test works for recommendations'
 	return make_fulfillment(recommendations)
 
