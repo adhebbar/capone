@@ -1,5 +1,6 @@
 import json
 import datetime
+import math
 
 ### Main import ###
 def respond(json_dict, account):
@@ -53,6 +54,8 @@ def get_intent(json_dict):
 	return json_dict['queryResult']['intent']['displayName']
 
 
+# returns number of weeks. includes decimals in case user chooses days instead of weeks
+# to predict money spent with decimals, I suggest
 def get_timeFrame(json_dict):
 	if 'startDate' in 'parameters' in 'queryResult' in json_dict and 'endDate' in 'parameters' in 'queryResult' in json_dict:
 		startDate = json_dict['queryResult']['parameters']['startDate'][0:10]
@@ -60,6 +63,13 @@ def get_timeFrame(json_dict):
 		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
 		realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
 		timeFrame = realEnd - realStart
-		return int(timeFrame.days)
+		return int(timeFrame.days) / 7
+	return False
 
-	return 0
+
+#weeks = 1.34
+#roundDown = math.floor(weeks)
+#remainder = weeks - roundDown
+#totalMoney = 0
+#for i in range(roundDown):
+#	totalMoney += 1
