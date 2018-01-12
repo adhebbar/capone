@@ -36,13 +36,13 @@ def habits(account, timeFrame):
 
 def predictions(account, timeFrame):
 	weeks, days = timeFrame
-	PredictedExpense = predict_weekly_expense(weeks, days)
-	return make_fulfillment("your predicted expenses are" + PredictedExpense)
-
+	PredictedExpense = str(int(account.predict_weekly_expense(weeks, days)))
+	return make_fulfillment("Your predicted expenses are $" + PredictedExpense)
 
 def recommendations(account, timeFrame):
-	recommendations = 'test works for recommendations'
-	return make_fulfillment(recommendations)
+	weeks, days = timeFrame
+	PredictedExpense = str(int(account.predict_weekly_expense(weeks, days)))
+	return make_fulfillment("Your predicted expenses are $" + PredictedExpense)
 
 ### Tools ###
 def make_fulfillment(text):
@@ -65,7 +65,7 @@ def get_timeFrame(json_dict):
 		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
 		realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
 		timeFrame = realEnd - realStart
-		return (int(timeFrame.days) / 7, timeFrame.days%7 ) # return weeks and days
+		return (int(timeFrame.days/7), timeFrame.days%7 ) # return weeks and days
 	return 'lol what'
 
 

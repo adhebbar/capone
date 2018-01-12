@@ -37,4 +37,4 @@ class Account:
 	def predict_weekly_expense(self, weeks, days):
 		purchaseData = self.purchases[["Posted Date", "Amount"]]
 		prediction = predict(purchaseData, weeks+1)
-		return prediction[:-1].sum() + predictions[-1] * days / 7  
+		return prediction[:-1].sum() + prediction[-1] * days / 7  
