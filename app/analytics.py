@@ -11,4 +11,11 @@ class Account:
 	def get_balance(self):
 		return self.deposits["amount"].sum() - self.purchases["amount"].sum()
 
+	def get_monthly_spending():
+		return
 
+	def get_segmented_spending():
+		return
+
+	def predict_weekly_expense(self, weeks):
+		return
