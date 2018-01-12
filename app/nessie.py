@@ -58,6 +58,10 @@ def requestDepositsByAccountID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/deposits?key=" + API_KEY)
     return json.dumps(r.json())
 
+def requestDepositsByAccountIDJSON(account_id):
+    r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/deposits?key=" + API_KEY)
+    return json.dumps(r.json())
+
 def getDepositsByDepositID(deposit_id):
     r = requests.get("http://api.reimaginebanking.com/deposits/" + deposit_id + "?key=" + API_KEY)
     return json.dumps(r.json())
@@ -84,6 +88,10 @@ def deleteDeposit(deposit_id):
 def requestPurchasesByAccountID(account_id):
     r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/purchases?key=" + API_KEY)
     return json.dumps(r.json())
+
+def requestPurchasesByAccountIDJSON(account_id):
+    r = requests.get("http://api.reimaginebanking.com/accounts/" + account_id + "/purchases?key=" + API_KEY)
+    return r.json()
 
 def requestPurchasesByAccountAndMerchantID(account_id, merchant_id):
     r = requests.get("http://api.reimaginebanking.com/merchants/" + merchant_id + "/accounts/" + account_id + "/purchases?key=" + API_KEY)
