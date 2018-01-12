@@ -3,7 +3,6 @@ import itertools
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm
-import matplotlib.pyplot as plt
 
 #data = pd.read_csv("smithK.csv")
 def predict(purchaseData, weeks):
