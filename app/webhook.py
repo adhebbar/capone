@@ -23,7 +23,6 @@ def respond(json_dict, account):
 def welcome(account):
 	return make_fulfillment("Hello")
 
-
 def balance(account):
 	#Hardcoded account
 	return make_fulfillment("Your balance is $" + str(account.get_balance()))
@@ -35,8 +34,9 @@ def habits(account, timeFrame):
 
 
 def predictions(account, timeFrame):
-	predictions = 'test works for predictions'
-	return make_fulfillment(predictions)
+	weeks, days = timeFrame
+	PredictedExpense = predict_weekly_expense(weeks, days)
+	return make_fulfillment("your predicted expenses are" + PredictedExpense)
 
 
 def recommendations(account, timeFrame):
@@ -57,14 +57,14 @@ def get_intent(json_dict):
 # returns number of weeks. includes decimals in case user chooses days instead of weeks
 # to predict money spent with decimals, I suggest
 def get_timeFrame(json_dict):
-	if 'startDate' in 'parameters' in 'queryResult' in json_dict and 'endDate' in 'parameters' in 'queryResult' in json_dict:
+	if get_intent(json_dict) == 'Predictions' or get_intent(json_dict) == 'Habits':
 		startDate = json_dict['queryResult']['parameters']['startDate'][0:10]
 		endDate = json_dict['queryResult']['parameters']['endDate'][0:10]
 		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
 		realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
 		timeFrame = realEnd - realStart
-		return (int(timeFrame.days) / 7, timeFrame.days%7 )
-	return False
+		return (int(timeFrame.days) / 7, timeFrame.days%7 ) # return weeks and days
+	return 'lol what'
 
 
 #weeks = 1.34
