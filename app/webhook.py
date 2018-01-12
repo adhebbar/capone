@@ -13,7 +13,7 @@ def respond(json_dict, account):
 	elif intent == "Balance":
 		return balance(account)
 	elif intent == "Habits":
-		return habits(account,timeFrame)
+		return habits(account)
 	elif intent == "Predictions":
 		return predictions(account,timeFrame)
 	elif intent == "Recommendations":
@@ -29,20 +29,25 @@ def balance(account):
 	return make_fulfillment("Your balance is $" + str(int(account.get_balance())))
 
 
-def habits(account, timeFrame):
-	habits = 'test works for habits'
-	return make_fulfillment(habits)
+def habits(account):
+	top_cats, top_perc = account.get_segmented_spending()
+	result = ""
+	for i,j in zip(top_cats, top_perc):
+		result = result + i + " is " + str(int(j*100)) + " percent. "
+	print(result)
+	print("\n\n\n\n\n\n\n\n")
+	return make_fulfillment(result)
 
 
 def predictions(account, timeFrame):
 	weeks, days = timeFrame
-	PredictedExpense = predict_weekly_expense(weeks, days)
-	return make_fulfillment("your predicted expenses are" + PredictedExpense)
-
+	PredictedExpense = str(int(account.predict_weekly_expense(weeks, days)))
+	return make_fulfillment("Your predicted expenses are $" + PredictedExpense)
 
 def recommendations(account, timeFrame):
-	recommendations = 'test works for recommendations'
-	return make_fulfillment(recommendations)
+	weeks, days = timeFrame
+	PredictedExpense = str(int(account.predict_weekly_expense(weeks, days)))
+	return make_fulfillment("Your predicted expenses are $" + PredictedExpense)
 
 ### Tools ###
 def make_fulfillment(text):
@@ -59,13 +64,12 @@ def get_intent(json_dict):
 # to predict money spent with decimals, I suggest
 def get_timeFrame(json_dict):
 	if get_intent(json_dict) == 'Predictions' or get_intent(json_dict) == 'Habits':
-		print(json_dict)
 		startDate = json_dict['queryResult']['parameters']['date-period']['startDate'][0:10]
 		endDate = json_dict['queryResult']['parameters']['date-period']['endDate'][0:10]
 		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
 		realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
 		timeFrame = realEnd - realStart
-		return (int(timeFrame.days) / 7, timeFrame.days%7 ) # return weeks and days
+		return (int(timeFrame.days/7), timeFrame.days%7 ) # return weeks and days
 	return 'lol what'
 
 
