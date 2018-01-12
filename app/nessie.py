@@ -7,6 +7,7 @@ req = requests.Session()
 req.headers.update({"content-type":"application/json"})
 
 # Account #
+
 def requestAllAccount():
     r = requests.get("http://api.reimaginebanking.com/accounts?type=Checking&key=" + API_KEY)
     return json.dumps(r.json())
