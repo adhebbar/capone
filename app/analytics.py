@@ -13,7 +13,7 @@ class Account:
 		# self.purchases = self.purchases[["purchase_date", "amount"]]
 
 		# Local mock data. Remove after testing
-		self.deposits = 6000
+		self.deposits = 9000
 		self.purchases = pd.read_csv("app/static/data/mock_user.csv")
 		self.purchases["Posted Date"] = pd.to_datetime(self.purchased["Posted Date"])
 		self.purchases = self.purchases[["Posted Date", "Amount", "Category"]]
