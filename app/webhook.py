@@ -25,7 +25,8 @@ def welcome(account):
 
 def balance(account):
 	#Hardcoded account
-	return make_fulfillment("Your balance is $" + str(account.get_balance()))
+
+	return make_fulfillment("Your balance is $" + str(int(account.get_balance())))
 
 
 def habits(account, timeFrame):
@@ -58,8 +59,9 @@ def get_intent(json_dict):
 # to predict money spent with decimals, I suggest
 def get_timeFrame(json_dict):
 	if get_intent(json_dict) == 'Predictions' or get_intent(json_dict) == 'Habits':
-		startDate = json_dict['queryResult']['parameters']['startDate'][0:10]
-		endDate = json_dict['queryResult']['parameters']['endDate'][0:10]
+		print(json_dict)
+		startDate = json_dict['queryResult']['parameters']['date-period']['startDate'][0:10]
+		endDate = json_dict['queryResult']['parameters']['date-period']['endDate'][0:10]
 		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')
 		realEnd = datetime.datetime.strptime(endDate, '%Y-%m-%d')
 		timeFrame = realEnd - realStart
