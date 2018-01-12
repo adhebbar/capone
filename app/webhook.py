@@ -13,7 +13,7 @@ def respond(json_dict, account):
 	elif intent == "Balance":
 		return balance(account)
 	elif intent == "Habits":
-		return habits(account,timeFrame)
+		return habits(account)
 	elif intent == "Predictions":
 		return predictions(account,timeFrame)
 	elif intent == "Recommendations":
@@ -29,9 +29,14 @@ def balance(account):
 	return make_fulfillment("Your balance is $" + str(int(account.get_balance())))
 
 
-def habits(account, timeFrame):
-	habits = 'test works for habits'
-	return make_fulfillment(habits)
+def habits(account):
+	top_cats, top_perc = account.get_segmented_spending()
+	result = ""
+	for i,j in zip(top_cats, top_perc):
+		result = result + i + " is " + str(int(j*100)) + " percent. "
+	print(result)
+	print("\n\n\n\n\n\n\n\n")
+	return make_fulfillment(result)
 
 
 def predictions(account, timeFrame):
@@ -59,7 +64,6 @@ def get_intent(json_dict):
 # to predict money spent with decimals, I suggest
 def get_timeFrame(json_dict):
 	if get_intent(json_dict) == 'Predictions' or get_intent(json_dict) == 'Habits':
-		print(json_dict)
 		startDate = json_dict['queryResult']['parameters']['date-period']['startDate'][0:10]
 		endDate = json_dict['queryResult']['parameters']['date-period']['endDate'][0:10]
 		realStart = datetime.datetime.strptime(startDate, '%Y-%m-%d')

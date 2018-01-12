@@ -24,15 +24,21 @@ class Account:
 		return self.deposits - self.purchases["Amount"].sum()
 		# return self.deposits["amount"].sum() - self.purchases["amount"].sum()
 
-	def get_monthly_spending():
+	def get_monthly_spending(self):
 		cleaned_chase = chase.iloc[:,[0,1]]
 		cleaned_chase.columns = ["purchase_date", "amount"]
 		monthly_purchases = cleaned_chase.resample("M", on=0).sum().reset_index()
 		return monthly_purchases.to_json()
 
-	def get_segmented_spending():
-
-		return
+	def get_segmented_spending(self):
+		purchases = self.purchases.iloc[:, [1,0,2]]
+		segmented_spending = purchases.groupby("Category").resample("M", on="Posted Date").sum()
+		segmented_spending["Amount"] = segmented_spending["Amount"].fillna(0)
+		segmented_spending = segmented_spending.reset_index().groupby("Category").sum() / purchases["Amount"].sum()
+		top_3 = segmented_spending.sort_values("Amount", ascending=False)[:3]
+		top_cats = top_3.index
+		top_percentage = top_3.Amount
+		return top_cats, top_percentage
 
 	def predict_weekly_expense(self, weeks, days):
 		purchaseData = self.purchases[["Posted Date", "Amount"]]
