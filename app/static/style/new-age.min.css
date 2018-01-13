@@ -451,9 +451,8 @@ footer ul li a:hover {
     padding: 15px 45px
 }
 
-    canvas{
+    #calendar{
         background-color: white;
         margin-top: 25px;
         border-radius: 15px;
-        opacity: 0.93;
     }
